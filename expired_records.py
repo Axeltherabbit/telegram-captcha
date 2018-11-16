@@ -1,5 +1,3 @@
-import threading
-
 def expiration_listener(pubsub, bot):
     for msg in pubsub.listen():
         msg = msg["data"].decode("utf-8") if type(msg["data"]) is bytes else ''
