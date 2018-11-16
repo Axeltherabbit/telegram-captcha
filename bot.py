@@ -2,6 +2,7 @@ from config import * #variabili di configurazione
 
 import time
 from redis import StrictRedis
+import threading
 
 import telegram
 from telegram.ext import Updater, MessageHandler, Filters, CallbackQueryHandler
