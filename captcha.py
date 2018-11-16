@@ -6,6 +6,7 @@ def new_user(bot,update,bot_id):
         admin=[user.user.id for user in bot.get_chat_administrators(update.message.chat.id)]
         if user.id == bot_id:
             bot.sendMessage(update.message.chat_id, "Hi, please give me admin permissions and I'll start work")
+            print(f"bot added in {update.message.chat_id}")
         elif r.get(f"aweek:{user.id}") is not None:
             print(f"{user.id} {user.first_name} @{user.username} is in the whitelist")
         elif update.message.from_user.id not in admin:
