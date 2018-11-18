@@ -1,1 +1,1 @@
-token= "TOKENHERE"
+token= "sto cazzo"
