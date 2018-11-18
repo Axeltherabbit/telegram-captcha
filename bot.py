@@ -14,6 +14,8 @@ from expired_records import *
 
 def main():
 
+    r = redis.Redis(host='localhost',port=6379)
+    r.flushdb() #clean db before the start
 
     bot = telegram.Bot(token)
     comandi = Updater(token)
@@ -31,7 +33,7 @@ def main():
     thread = threading.Thread(target = expiration_listener, args = (pubsub, bot ))
     thread.start()
 
-    comandi.start_polling(1.25)
+    comandi.start_polling(1.25, clean=True)
     comandi.idle()
 
 
