@@ -33,7 +33,7 @@ def main():
     thread = threading.Thread(target = expiration_listener, args = (pubsub, bot ))
     thread.start()
 
-    comandi.start_polling(1.25, clean=True)
+    comandi.start_polling(0.75, clean=True)
     comandi.idle()
 
 

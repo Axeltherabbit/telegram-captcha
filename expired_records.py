@@ -18,7 +18,10 @@ def expiration_listener(pubsub, bot):
             bot.editMessageText(chat_id=chat_id,message_id=message_id,text=f"captcha failed, the user has been kicked, warn: {num_warn}/3")
             print(f"{user_id} has been banned from {chat_id} -> warn num {num_warn}")
             if num_warn < 3:
-                bot.unbanChatMember(chat_id=chat_id,user_id=user_id)
+                try:#just for supergroups
+                    bot.unbanChatMember(chat_id=chat_id,user_id=user_id)
+                except:
+                    pass
             else:
                 bot.sendMessage(chat_id,"warn number 3, permanent ban")
                 print(f"permanent ban from {chat_id} for {user_id}")
