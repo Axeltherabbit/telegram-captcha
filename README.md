@@ -1,4 +1,4 @@
-#Telegram-captcha
+# Telegram-captcha
 
 You need a file named `config.py`:
 ```
