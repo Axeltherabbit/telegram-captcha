@@ -12,6 +12,9 @@ from captcha import *
 from buttons_query import *
 from expired_records import *
 
+def error_callback(bot, update, error):
+    print("error: ", error)
+
 def main():
 
     r = redis.Redis(host='localhost',port=6379)
@@ -26,6 +29,7 @@ def main():
     comandi.dispatcher.add_handler(msg_handler)
 
     comandi.dispatcher.add_handler(CallbackQueryHandler(buttons))
+    comandi.dispatcher.add_error_handler(error_callback)
 
     r = redis.StrictRedis()
     pubsub = r.pubsub()
