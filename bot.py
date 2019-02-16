@@ -1,4 +1,4 @@
-from config import * #variabili di configurazione
+from config import * #config vars
 
 import time
 from redis import StrictRedis
@@ -12,8 +12,10 @@ from captcha import *
 from buttons_query import *
 from expired_records import *
 
+from logger import *
+
 def error_callback(bot, update, error):
-    print("error: ", error)
+    log.warning("error: ", error)
 
 def main():
 
