@@ -1,4 +1,4 @@
-import logging
+import logging as log
 
-log=logging.basicConfig(format='%(asctime)s %(message)s',filename='log.txt',level=logging.DEBUG)
+log.basicConfig(format='%(asctime)s %(message)s',filename='log.txt',level=log.DEBUG)
 
