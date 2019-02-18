@@ -13,7 +13,7 @@ def new_user(bot,update,bot_id):
             log.debug(f"{user.id} {user.first_name} @{user.username} is in the whitelist")
         elif r.get(f"warn:{user.id}") is not None and int(r.get(f"warn:{user.id}")) >= 3: #if the user has got 3 warns
             bot.kickChatMember(chat_id=update.message.chat_id,user_id=user.id)
-            bot.sendMessage(update.message.chat_id,"A blacklisted user has been banned")
+            #bot.sendMessage(update.message.chat_id,"A blacklisted user has been banned")
             log.debug(f"{user.id} {user.first_name} @{user.username} is in the blacklist")
         elif update.message.from_user.id not in admin:#finally the captcha if the user has not been added by an admin
             try:#it works just in supergroups
