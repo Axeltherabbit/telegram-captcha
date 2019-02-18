@@ -22,7 +22,7 @@ def exp_msg_thread(msg,bot):
                 r.setex(f"warn:{user_id}",86400,int(r.get(f"warn:{user_id}"))+1)
             num_warn=int(r.get(f"warn:{user_id}"))
             bot.editMessageText(chat_id=chat_id,message_id=message_id,text=f"captcha failed, the user has been kicked, warn: {num_warn}/3")
-            r.setex(f"clearspam:{chat_it}:{message_id}",180,'')
+            r.setex(f"clearspam:{chat_id}:{message_id}",180,'')
             log.debug(f"{user_id} has been banned from {chat_id} -> warn num {num_warn}")
             if num_warn < 3:
                 try:#just for supergroups
@@ -31,14 +31,14 @@ def exp_msg_thread(msg,bot):
                     log.warning(e)
             else:
                 m=bot.sendMessage(chat_id,"warn number 3, permanent ban")
-                r.setex(f"clearspam:{m.chat_it}:{m.message_id}",180,'')
+                r.setex(f"clearspam:{m.chat_id}:{m.message_id}",180,'')
                 log.debug(f"permanent ban from {chat_id} for {user_id}")
     
     elif msg.startswith("clearspam:"):
         data=msg.split(":")
         chat_id=data[1]
         message_id=data[2]
-        bot.removeMessage(chat_id,message_id)
+        bot.deleteMessage(chat_id,message_id)
 
 
 def expiration_listener(pubsub, bot):
