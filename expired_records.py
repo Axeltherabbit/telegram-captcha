@@ -29,7 +29,7 @@ def exp_msg_thread(msg,bot):
                 except Exception as e:
                     log.warning(e)
             else:
-                bot.sendMessage(chat_id,"warn number 3, permanent ban")
+                #bot.sendMessage(chat_id,"warn number 3, permanent ban")
                 log.debug(f"permanent ban from {chat_id} for {user_id}")
 
 
