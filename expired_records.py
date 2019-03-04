@@ -9,7 +9,8 @@ def exp_msg_thread(msg,bot):
         data=msg.split(":")
         user_id=data[1]
         chat_id=data[2]
-        message_id=data[3]
+        botmessage_id=data[3]
+        joinedmessage_id=data[4]
 
         try:#it need admin permissions
             bot.kickChatMember(chat_id=chat_id,user_id=user_id)
@@ -21,8 +22,9 @@ def exp_msg_thread(msg,bot):
             else:
                 r.setex(f"warn:{user_id}",86400,int(r.get(f"warn:{user_id}"))+1)
             num_warn=int(r.get(f"warn:{user_id}"))
-            bot.editMessageText(chat_id=chat_id,message_id=message_id,text=f"captcha failed, the user has been kicked, warn: {num_warn}/3")
-            r.setex(f"clearspam:{chat_id}:{message_id}",180,'')
+            bot.editMessageText(chat_id=chat_id,message_id=botmessage_id,text=f"captcha failed, the user has been kicked, warn: {num_warn}/3")
+            bot.deleteMessage(chat_id=chat_id,message_id=joinedmessage_id)
+            r.setex(f"clearspam:{chat_id}:{botmessage_id}",180,'')
             log.debug(f"{user_id} has been banned from {chat_id} -> warn num {num_warn}")
             if num_warn < 3:
                 try:#just for supergroups

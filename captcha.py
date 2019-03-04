@@ -13,8 +13,9 @@ def new_user(bot,update,bot_id):
             log.debug(f"{user.id} {user.first_name} @{user.username} is in the whitelist")
         elif r.get(f"warn:{user.id}") is not None and int(r.get(f"warn:{user.id}")) >= 3: #if the user has got 3 warns
             bot.kickChatMember(chat_id=update.message.chat_id,user_id=user.id)
-            m=bot.sendMessage(update.message.chat_id,f"A blacklisted user has been banned {user.first_name @{user.username}}")
-            r.setex(f"clearspam:{m.chat_id}:{m.message_id}",360,'')
+            bot.deleteMessage(update.message.chat_id,update.message.message_id)
+            m=bot.sendMessage(update.message.chat_id,f"A blacklisted user has been banned {user.first_name} @{user.username}")
+            r.setex(f"clearspam:{update.message.chat_id}:{m.message_id}",360,'')
             log.debug(f"{user.id} {user.first_name} @{user.username} is in the blacklist")
         elif update.message.from_user.id not in admin:#finally the captcha if the user has not been added by an admin
             try:#it works just in supergroups
@@ -26,5 +27,6 @@ def new_user(bot,update,bot_id):
             msg=bot.sendMessage(update.message.chat_id,f'''Hello {user.first_name} @{user.username}!\n
 If you're not a robot please press the button and I'll unmute you or I'll kick you in a minute''',
                                 reply_markup = captcha)
-            r.setex(f"aminute:{user.id}:{update.message.chat_id}:{msg.message_id}",60,'')
+            #aminute:user_id:chat_id:botmsg_id:joinedmsg_id
+            r.setex(f"aminute:{user.id}:{update.message.chat_id}:{msg.message_id}:{update.message.message_id}",60,'')
             log.debug(f"{user.id} {user.first_name} @{user.username} has got a captcha")
