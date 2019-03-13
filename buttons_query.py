@@ -3,8 +3,10 @@ from logger import *
 
 def buttons(bot, update):
     query = update.callback_query
-    if query.data == str(query.from_user.id):
-        if r.delete(f"aminute:{query.from_user.id}:{query.message.chat_id}:{query.message.message_id}") > 0:
+    if query.data == str(query.from_user.id): 
+        path=f"aminute:{query.from_user.id}:{query.message.chat_id}:{query.message.message_id}:*"
+        result=r.delete(r.keys(path)[0]) 
+        if result >  0:
             bot.editMessageText(chat_id=query.message.chat_id,message_id=query.message.message_id,text="captcha solved ✅")
             r.setex(f"clearspam:{query.message.chat_id}:{query.message.message_id}",180,'')
             r.setex(f"aweek:{query.from_user.id}",604800,'')
