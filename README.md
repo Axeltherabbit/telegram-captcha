@@ -2,5 +2,5 @@
 
 You need a file named `config.py`:
 ```
-token="YOUTOKENHERE"
+token="YOURTOKENHERE"
 ```
